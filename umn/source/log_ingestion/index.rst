@@ -5,12 +5,10 @@
 Log Ingestion
 =============
 
--  :ref:`Collecting Logs from Hosts <lts_04_0015>`
--  :ref:`ICAgent Management <lts_04_0010>`
+-  :ref:`Collecting Logs from Cloud Services <lts_04_0105>`
 
 .. toctree::
    :maxdepth: 1
    :hidden: 
 
-   collecting_logs_from_hosts
-   icagent_management/index
+   collecting_logs_from_cloud_services/index

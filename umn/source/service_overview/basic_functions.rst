@@ -1,21 +1,23 @@
-:original_name: lts_01_0004.html
+:original_name: lts-03202.html
 
-.. _lts_01_0004:
+.. _lts-03202:
 
 Basic Functions
 ===============
 
-Real-Time Log View
-------------------
+Real-time Log Collection
+------------------------
 
-You can view the last seven days of logs in real time, helping you diagnose logs of the interconnected services such as VPC. In addition, you can preview these logs in the log display area.
+LTS collects real-time logs and displays them on the LTS console in an intuitive and orderly manner. You can query logs or transfer logs for long-term storage.
 
-Log Query and Analysis
-----------------------
+Collected logs can be structured for analysis. To be specific, LTS extracts logs that are in a fixed format or share a similar pattern based on the extraction rules you set. Then you can use SQL syntax to query the structured logs.
 
-This function allows you to query historical logs by filter, diagnose faults, and track the system, helping you operate and maintain devices and analyze customer service trends.
+Log Query and Real-Time Analysis
+--------------------------------
+
+Collected logs can be quickly queried by keyword or fuzzy match. You can analyze real-time logs for security diagnosis and analysis, or obtain operations statistics, such as cloud service visits and clicks.
 
 Log Transfer
 ------------
 
-Logs are stored on LTS for seven days by default, and earlier logs are deleted automatically. For long-term storage, you can transfer logs to OBS buckets.
+Logs reported from hosts and cloud services are retained in LTS for seven days by default. Logs older than the retention period will be automatically deleted. For long-term storage, you can transfer logs to Object Storage Service (OBS). Log transfer is to replicate logs to the target cloud service. It means that, after log transfer, the original logs will still be retained in LTS until the configured retention period ends.
