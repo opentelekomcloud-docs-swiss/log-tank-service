@@ -8,4 +8,6 @@ Log Tank Service (LTS) stores logs, allowing you to query and transfer them in r
 
    .. service_card::
       :service_type: lts
+      :environment: internal
       :umn: This document describes Log Tank Service, helping you quickly and properly use the service.
+      :api-ref: This document describes application programming interfaces (APIs) of Log Tank Service and provides API parameter description and example values.
