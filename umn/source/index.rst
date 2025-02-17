@@ -6,10 +6,15 @@ Log Tank Service - User Guide
    :maxdepth: 1
 
    service_overview/index
-   log_group_management/index
-   log_stream_management/index
-   log_view/index
+   getting_started/index
+   permissions_management
+   log_management/index
    log_ingestion/index
+   host_management/index
+   viewing_logs/index
+   log_analysis/index
+   log_alarms/index
    log_transfer/index
+   configuration_center/index
    faqs/index
    change_history

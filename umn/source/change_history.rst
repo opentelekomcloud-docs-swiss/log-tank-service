@@ -1,12 +1,12 @@
-:original_name: lts_01_0033.html
+:original_name: lts_04_0032.html
 
-.. _lts_01_0033:
+.. _lts_04_0032:
 
-**Change History**
-==================
+Change History
+==============
 
 =========== =========================================
 Released On Description
 =========== =========================================
-2024-06-05  This issue is the first official release.
+2024-11-30  This issue is the first official release.
 =========== =========================================
