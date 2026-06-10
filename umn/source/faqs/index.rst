@@ -5,8 +5,9 @@
 FAQs
 ====
 
--  :ref:`Log Collection <lts_faq_0020>`
--  :ref:`Log Search and Check <lts_faq_0030>`
+-  :ref:`Host Management <lts_faq_0010>`
+-  :ref:`Log Ingestion <lts_faq_0020>`
+-  :ref:`Log Search and Analysis <lts_faq_0030>`
 -  :ref:`Log Transfer <lts_faq_0040>`
 -  :ref:`Others <lts_faq_0060>`
 
@@ -14,7 +15,8 @@ FAQs
    :maxdepth: 1
    :hidden: 
 
-   log_collection/index
-   log_search_and_check/index
+   host_management/index
+   log_ingestion/index
+   log_search_and_analysis/index
    log_transfer/index
    others/index

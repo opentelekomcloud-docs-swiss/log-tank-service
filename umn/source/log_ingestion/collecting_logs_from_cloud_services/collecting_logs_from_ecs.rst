@@ -5,14 +5,12 @@
 Collecting Logs from ECS
 ========================
 
-ICAgent collects logs from hosts based on your specified collection rules, and packages and sends the collected log data to LTS on a log stream basis. You can view logs on the LTS console in real time.
+ICAgent collects logs from Elastic Cloud Servers (ECSs) based on your specified collection rules, and packages and sends the collected log data to LTS on a log stream basis. You can view logs on the LTS console in real time.
 
 Prerequisites
 -------------
 
 ICAgent has been :ref:`installed <lts_02_0013>` and :ref:`added <lts_02_1033__en-us_topic_0000001118763740_li682633315215>` to the host group.
-
-.. _lts_04_1031__en-us_topic_0000001118501736_section7819102916332:
 
 Procedure
 ---------
@@ -21,52 +19,64 @@ Perform the following operations to configure ECS log ingestion:
 
 #. Log in to the LTS console.
 
-#. In the navigation pane on the left, choose **Log Ingestion** and click **ECS (Elastic Cloud Server)**.
+#. In the left navigation pane, choose **Log Ingestion**. On the displayed page, click **ECS (Elastic Cloud Server)**.
 
-#. Select a log stream.
+#. Select a log group.
 
-   a. Select a log group from the drop-down list of **Log Group**. If there are no desired log groups, click **Create Log Group** to create one.
-   b. Select a log stream from the drop-down list of **Log Stream**. If there are no desired log streams, click **Create Log Stream** to create one.
-   c. Click **Next: Select Host Group**.
+   a. Select a log group from the **Log Group** drop-down list. If there are no desired log groups, click **Create Log Group** to create one.
+   b. Select a log stream from the **Log Stream** drop-down list. If there are no desired log streams, click **Create Log Stream** to create one.
+   c. Click **Next: (Optional) Select Host Group**.
 
-#. Select host groups.
+#. Select a host group.
 
-   a. In the host group list, select one or more host groups to collect logs. If there are no desired host groups, click **Create** in the upper left corner of the list. On the displayed **Create Host Group** page, create a host group. For details, see :ref:`Creating a Host Group (IP Address) <lts_02_1033__en-us_topic_0000001118763740_section665755611241>`.
+   a. Select one or more host groups from which you want to collect logs. If there are no desired host groups, click **Create** above the host group list to create one. For details, see :ref:`Creating a Host Group (IP Address) <lts_02_1033__en-us_topic_0000001118763740_section665755611241>`.
 
       .. note::
 
-         You can skip this step and configure host groups after the ingestion configuration is complete. There are two ways to do this:
+         You can also deselect the host group. In this case, the collection configuration does not take effect. You are advised to select a host group during the first ingestion. You can skip this step and configure host groups after the ingestion configuration is complete. There are two options to do this:
 
-         -  Choose **Host Management** in the navigation pane, click **Host Groups**, and associate host groups with ingestion configurations.
-         -  Choose **Log Ingestion** in the navigation pane, click an ingestion configuration, and make the association on the details page.
+         -  On the LTS console, choose **Host Management** > **Host Groups** and associate host groups with ingestion configurations.
+         -  On the LTS console, choose **Log Ingestion** in the navigation pane and click an ingestion configuration. On the displayed page, add one or more host groups for association.
 
-   b. Click **Next: Configurations**.
+   b. Click **Next: Configure Collection**.
 
 #. Configure the collection.
 
-   Specify collection rules. For details, see :ref:`Configuring the Collection <lts_04_1031__en-us_topic_0000001118501736_section196913102330>`.
+   Specify collection rules. For details, see :ref:`Configurations <lts_04_1031__en-us_topic_0000001118501736_section196913102330>`.
 
-#. Click **Back to Ingestion Configurations** to :ref:`check the ingestion details <lts_04_1031__en-us_topic_0000001118501736_section16196351114917>`. You can also click **View Log Stream** to view the log stream to which logs are ingested.
+#. (Optional) Configure log structuring.
+
+   For details, see :ref:`Cloud Structuring Parsing <lts_0821>`.
+
+   .. note::
+
+      If structuring has been configured for the selected log stream, exercise caution when deleting it.
+
+#. (Optional) Configure **Index Settings**.
+
+   For details, see :ref:`Index Settings <lts_05_0008>`.
+
+#. Click **Submit**. After the ingestion is successful, click **Back to Ingestion Configurations** to :ref:`check the ingestion details <lts_04_1031__en-us_topic_0000001118501736_section16196351114917>`. You can also click **View Log Stream** to view the log stream to which logs are ingested.
 
 .. _lts_04_1031__en-us_topic_0000001118501736_section196913102330:
 
-Configuring the Collection
---------------------------
+Configurations
+--------------
 
-When you configure host log ingestion, the configuration details are as follows.
+When you configure host log ingestion, the collection configuration details are as follows.
 
 #. **Collection Configuration Name**: Enter up to 64 characters. Only letters, digits, hyphens (-), underscores (_), and periods (.) are allowed. The name cannot start with a period or underscore, or end with a period.
 
    .. note::
 
-      To import old-edition ingestion configurations to the new edition of log ingestion, click **Import Old-Edition Configuration**.
+      **Import Old-Edition Configuration**: Import the host ingestion configuration of the old version to the log ingestion of the new version.
 
       -  If LTS is newly installed and **Import Old-Edition Configuration** is not displayed, you can directly create a configuration without importing the old one.
       -  If LTS is upgraded, **Import Old-Edition Configuration** is displayed. If you need the host log path in the old configuration, import the old configuration or create one.
 
 #. .. _lts_04_1031__en-us_topic_0000001118501736_li17754123317308:
 
-   **Collection Paths**: Add one or more host paths. LTS will collect logs from these paths.
+   **Collection Paths**: Specify the paths from which LTS will collect logs.
 
    -  Logs can be collected recursively. A double asterisk (**) can represent up to 5 directory levels in a path.
 
@@ -87,6 +97,10 @@ When you configure host log ingestion, the configuration details are as follows.
          -  A collection path cannot begin with a double asterisk (**), such as **/**/test** to avoid collecting system files.
 
    -  You can use an asterisk (*) as a wildcard for fuzzy match. The wildcard (*) can represent one or more characters of a directory or file name.
+
+      .. note::
+
+         If a log collection path is similar to **C:\\windows\\system32** but logs cannot be collected, enable the Web Application Firewall (WAF) and configure the path again.
 
       -  Example 1: **/var/logs/*/a.log** will match all **a.log** files found in all directories under the **/var/logs/** directory:
 
@@ -118,17 +132,40 @@ When you configure host log ingestion, the configuration details are as follows.
       -  If a collection path of a host has been configured in AOM, do not configure the path in LTS. If a path is configured in both AOM and LTS, only the path that is configured later takes effect.
       -  If log files were last modified more than 12 hours earlier than the time when the path is added, the files are not collected.
 
-#. **Set Collection Filters**: Blacklisted directories or files will not be collected. If you specify a directory, all files in the directory are filtered out.
+#. **Set Collection Filters**: Blacklisted directories or files will not be collected. If you specify a directory, all files in the directory are filtered out, but log files in the folders in the directory cannot be filtered out.
 
    Blacklist filters can be exact matches or wildcard pattern matches. For details, see :ref:`Collection Paths <lts_04_1031__en-us_topic_0000001118501736_li17754123317308>`.
 
    .. note::
 
-      If you blacklist a file or directory that has been set as a collection path in the previous step, the blacklist settings will be used and the file or files in the directory will be filtered out.
+      -  If you blacklist a file or directory that has been set as a collection path in the previous step, the blacklist settings will be used and the file or files in the directory will be filtered out.
+      -  If a log has been added to the blacklist, it cannot be collected even if you create a log ingestion task. You can collect it again only after you delete the collection path from the blacklist.
+
+#. Perform other configurations.
+
+   .. table:: **Table 1** Other configurations
+
+      +-----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+      | Parameter                         | Description                                                                                                                                                                                                       |
+      +===================================+===================================================================================================================================================================================================================+
+      | Split Logs                        | LTS supports log splitting, which is disabled by default.                                                                                                                                                         |
+      |                                   |                                                                                                                                                                                                                   |
+      |                                   | If this option is enabled, a single-line log larger than 500 KB will be split into multiple lines for collection. For example, a 600 KB single-line log will be split into a line of 500 KB and a line of 100 KB. |
+      |                                   |                                                                                                                                                                                                                   |
+      |                                   | If this option is disabled, when a log exceeds 500 KB, the extra part will be truncated and discarded.                                                                                                            |
+      +-----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+      | Collect Binary Files              | LTS supports binary file collection, which is disabled by default.                                                                                                                                                |
+      |                                   |                                                                                                                                                                                                                   |
+      |                                   | Run the **file -i** *File_name* command to view the file type. **charset=binary** indicates that a log file is a binary file.                                                                                     |
+      |                                   |                                                                                                                                                                                                                   |
+      |                                   | If this option is enabled, binary log files will be collected, but only UTF-8 strings are supported. Other strings will be garbled on the LTS console.                                                            |
+      |                                   |                                                                                                                                                                                                                   |
+      |                                   | If this option is disabled, binary log files will not be collected.                                                                                                                                               |
+      +-----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 #. Configure the log format and log time.
 
-   .. table:: **Table 1** Log collection settings
+   .. table:: **Table 2** Log collection settings
 
       +-----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
       | Parameter                         | Description                                                                                                                                                                                                                                                 |
@@ -192,10 +229,4 @@ On the LTS console, choose **Log Ingestion** in the navigation pane. Alternative
 
 -  All ingestion configurations are displayed on the **Log Ingestion** page. Click an ingestion configuration to view its details.
 -  Click the name of the log group or log stream on the row that contains an ingestion configuration to check the log group or log stream details.
--  To modify an ingestion configuration, click |image1| in the **Operation** column for the target configuration and modify the configuration by referring to :ref:`Procedure <lts_04_1031__en-us_topic_0000001118501736_section7819102916332>`.
--  To delete an ingestion configuration, click |image2| in the **Operation** column for the target configuration. You can also select more than one ingestion configurations and click **Delete** above the configuration list to delete them at a go.
--  Tag management: Click |image3| in the **Operation** column of the row that contains the desired ingestion configuration to add a tag.
-
-.. |image1| image:: /_static/images/en-us_image_0000001123555094.png
-.. |image2| image:: /_static/images/en-us_image_0000001123715432.png
-.. |image3| image:: /_static/images/en-us_image_0000001499855785.png
+-  The **Operation** column in the ingestion configuration list provides buttons for you to copy, modify, delete, and manage tags.

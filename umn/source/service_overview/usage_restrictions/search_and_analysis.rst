@@ -5,10 +5,7 @@
 Search and Analysis
 ===================
 
-This section describes the restrictions on LTS query and analysis.
-
-Search
-------
+This section describes the restrictions on LTS search and analysis.
 
 .. table:: **Table 1** Log search restrictions
 

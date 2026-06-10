@@ -5,24 +5,27 @@
 Permissions Management
 ======================
 
+Description
+-----------
+
 If you need to assign different permissions to employees in your enterprise to access your LTS resources, Identity and Access Management (IAM) is a good choice for fine-grained permissions management. IAM provides identity authentication, permissions management, and access control, helping you secure access to your LTS resources.
 
 With IAM, you can use your account to create IAM users for your employees, and assign permissions to the users to control their access to LTS resources. For example, some software developers in your enterprise need to use LTS resources but should not delete them or perform other high-risk operations. In this case, you can create IAM users for the software developers and grant them only the permissions required.
 
 If your account does not need individual IAM users for permissions management, you may skip over this section.
 
-IAM can be used for free. You pay only for the resources in your account. For more information about IAM, see the "Service Overview" in the *Identity and Access Management User Guide*.
+IAM can be used for free. You pay only for the resources in your account. For more information about IAM, see section "Service Overview" in *Identity and Access Management User Guide*.
 
 LTS Permissions
 ---------------
 
 By default, new IAM users do not have permissions assigned. You need to add users to one or more groups, and attach permissions policies or roles to these groups. Users inherit permissions from the groups to which they are added and can perform specified operations on cloud services based on the permissions.
 
-LTS is a project-level service deployed and accessed in specific physical regions. When you set **Scope** to **Region-specific projects** and select the specified projects in the specified regions, the users only have permissions for LTS in the selected projects. If you select **All projects**, the users have permissions for LTS in all region-specific projects. When accessing LTS, the users need to switch to a region where they have been authorized to use LTS.
+LTS is a project-level service deployed and accessed in specific physical regions. To assign LTS permissions to a user group, specify the scope as region-specific projects and select projects for the permissions to take effect. If **All projects** is selected, the permissions will take effect for the user group in all region-specific projects. When accessing LTS, the users need to switch to a region where they have been authorized to use LTS.
 
 Policies: A type of fine-grained authorization mechanism that defines permissions required to perform operations on specific cloud resources under certain conditions. This mechanism allows for more flexible policy-based authorization, meeting requirements for secure access control. For example, you can grant Elastic Cloud Server (ECS) users only the permissions for managing a certain type of ECSs. Most policies define permissions based on APIs.
 
-:ref:`Table 1 <lts-03205__en-us_topic_0180792016_table7749356973>` lists all the system permissions of LTS.
+The system permissions supported by LTS are listed in :ref:`Table 1 <lts-03205__en-us_topic_0180792016_table7749356973>`.
 
 .. _lts-03205__en-us_topic_0180792016_table7749356973:
 
@@ -33,12 +36,12 @@ Policies: A type of fine-grained authorization mechanism that defines permission
    +====================+=======================================================================================+=======================+====================================================================================+
    | LTS FullAccess     | Full permissions for LTS. Users with these permissions can perform operations on LTS. | System-defined policy | CCE Administrator, OBS Administrator, and AOM FullAccess                           |
    +--------------------+---------------------------------------------------------------------------------------+-----------------------+------------------------------------------------------------------------------------+
-   | LTS ReadOnlyAccess | Read-only permissions for LTS. Users with these permissions can only view LTS data.   | System-defined policy |                                                                                    |
+   | LTS ReadOnlyAccess | Read-only permissions for LTS. Users with these permissions can only view LTS data.   | System-defined policy | CCE Administrator, OBS Administrator, and AOM FullAccess                           |
    +--------------------+---------------------------------------------------------------------------------------+-----------------------+------------------------------------------------------------------------------------+
    | LTS Administrator  | Administrator permissions for LTS.                                                    | System-defined role   | This role is dependent on the **Tenant Guest** and **Tenant Administrator** roles. |
    +--------------------+---------------------------------------------------------------------------------------+-----------------------+------------------------------------------------------------------------------------+
 
-:ref:`Table 2 <lts-03205__en-us_topic_0180792016_table121207991710>` lists the common operations supported by each system-defined policy and role of LTS. Choose the appropriate policies and roles as required.
+:ref:`Table 2 <lts-03205__en-us_topic_0180792016_table121207991710>` lists the common operations supported by each system-defined policy and role of LTS. Choose the appropriate policies and roles according to this table.
 
 .. _lts-03205__en-us_topic_0180792016_table121207991710:
 
@@ -73,13 +76,13 @@ Policies: A type of fine-grained authorization mechanism that defines permission
    +-----------------------------------------------+----------------+--------------------+-------------------+
    | Disabling quick analysis                      | Y              | x                  | Y                 |
    +-----------------------------------------------+----------------+--------------------+-------------------+
-   | Querying a filter                             | Y              | Y                  | Y                 |
+   | Querying an alarm rule                        | Y              | Y                  | Y                 |
    +-----------------------------------------------+----------------+--------------------+-------------------+
-   | Disabling a filter                            | Y              | x                  | Y                 |
+   | Creating an alarm rule                        | Y              | x                  | Y                 |
    +-----------------------------------------------+----------------+--------------------+-------------------+
-   | Enabling a filter                             | Y              | x                  | Y                 |
+   | Modifying an alarm rule                       | Y              | x                  | Y                 |
    +-----------------------------------------------+----------------+--------------------+-------------------+
-   | Deleting a filter                             | Y              | x                  | Y                 |
+   | Deleting an alarm rule                        | Y              | x                  | Y                 |
    +-----------------------------------------------+----------------+--------------------+-------------------+
    | Viewing a log transfer task                   | Y              | Y                  | Y                 |
    +-----------------------------------------------+----------------+--------------------+-------------------+
@@ -108,148 +111,156 @@ To use a custom fine-grained policy, log in to IAM as the administrator and sele
 
 .. table:: **Table 3** Fine-grained permission dependencies of LTS
 
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | Permission                        | Description                                                 | Dependency                            |
-   +===================================+=============================================================+=======================================+
-   | lts:agents:list                   | List agents                                                 | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:buckets:get                   | Query a specified bucket                                    | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:groups:put                    | Modify a specified log group                                | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:transfers:create              | Create a log transfer task                                  | obs:bucket:PutBucketAcl               |
-   |                                   |                                                             |                                       |
-   |                                   |                                                             | obs:bucket:GetBucketAcl               |
-   |                                   |                                                             |                                       |
-   |                                   |                                                             | obs:bucket:GetEncryptionConfiguration |
-   |                                   |                                                             |                                       |
-   |                                   |                                                             | obs:bucket:HeadBucket                 |
-   |                                   |                                                             |                                       |
-   |                                   |                                                             | dis:streams:list                      |
-   |                                   |                                                             |                                       |
-   |                                   |                                                             | dis:streamPolicies:list               |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:groups:get                    | Query a specified log group                                 | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:groups:create                 | Creating a log group                                        | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:transfers:put                 | Modify a log transfer task                                  | obs:bucket:PutBucketAcl               |
-   |                                   |                                                             |                                       |
-   |                                   |                                                             | obs:bucket:GetBucketAcl               |
-   |                                   |                                                             |                                       |
-   |                                   |                                                             | obs:bucket:GetEncryptionConfiguration |
-   |                                   |                                                             |                                       |
-   |                                   |                                                             | obs:bucket:HeadBucket                 |
-   |                                   |                                                             |                                       |
-   |                                   |                                                             | dis:streams:list                      |
-   |                                   |                                                             |                                       |
-   |                                   |                                                             | dis:streamPolicies:list               |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:ecsOsLogPaths:list            | List OS log paths of a specified image                      | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:agentsConf:get                | Query a specified agent configuration                       | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:logIndex:list                 | List log indexes                                            | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:transfers:delete              | Delete a log transfer task                                  | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:regex:create                  | Extract structured fields                                   | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:subscriptions:delete          | Delete a specified subscription                             | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:overviewLogsLast:list         | List the latest logs of a user                              | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:logIndex:get                  | Query a specified log index                                 | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:agentsConf:create             | Create an agent configuration                               | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:datasources:batchdelete       | Batch delete data sources                                   | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:groups:list                   | List log groups                                             | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:transfers:action              | Enable or disable a log transfer task                       | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:datasources:post              | Create a data source                                        | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:topics:create                 | Create a log topic                                          | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:resourceTags:get              | Query resource tags                                         | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:filters:put                   | Modify a log filter                                         | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:logs:list                     | List logs                                                   | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:subscriptions:create          | Create a subscription                                       | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:filtersAction:put             | Enable or disable a log filter                              | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:overviewLogsTopTopic:get      | Query data metrics of the topic with the largest log volume | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:datasources:put               | Modify a data source                                        | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:logIndex:delete               | Delete a specified log index                                | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:filters:get                   | Query a specified log filter                                | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:topics:delete                 | Delete log topics                                           | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:agentSupportedOsLogPaths:list | List the log paths of OS supported by the agent             | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:topics:put                    | Modify a log topic                                          | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:agentHeartbeat:post           | Upload agent heartbeats                                     | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:logsByName:upload             | Upload logs by log group name and topic name                | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:buckets:list                  | List buckets                                                | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:logIndex:post                 | Create a log index                                          | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:logContext:list               | List log contexts                                           | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:groups:delete                 | Delete a specified log group                                | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:filters:delete                | Delete a log filter                                         | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:resourceTags:put              | Update resource tags                                        | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:overviewLogTotal:get          | Query the total log volume of the current user              | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:subscriptions:put             | Modify a specified subscription                             | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:subscriptions:list            | List subscriptions                                          | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:datasources:delete            | Delete a specified data source                              | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:transfersStatus:get           | Query the log transfer status                               | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:logIndex:put                  | Modify a specified log index                                | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:logs:upload                   | Upload logs                                                 | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:agentDetails:list             | List agent diagnostic logs                                  | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:agentsConf:put                | Modify an agent configuration                               | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:logstreams:list               | Filter log stream resources                                 | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:subscriptions:get             | Query a specified subscription                              | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:disStreams:list               | List DIS streams                                            | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:groupTopics:put               | Create a log group and topic                                | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:resourceInstance:list         | List resource instances                                     | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:transfers:list                | List transfer tasks                                         | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:topics:get                    | Query a specified log topic                                 | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:agentsConf:delete             | Delete a specified agent configuration                      | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:agentEcs:list                 | List ECSs                                                   | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:indiceLogs:list               | Search for logs                                             | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
-   | lts:topics:list                   | List log topics                                             | None                                  |
-   +-----------------------------------+-------------------------------------------------------------+---------------------------------------+
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | Permission                        | Description                        | Dependency                            |
+   +===================================+====================================+=======================================+
+   | lts:agents:list                   | List agents                        | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:buckets:get                   | Get bucket                         | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:groups:put                    | Put log group                      | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:transfers:create              | Create transfer                    | obs:bucket:PutBucketAcl               |
+   |                                   |                                    |                                       |
+   |                                   |                                    | obs:bucket:GetBucketAcl               |
+   |                                   |                                    |                                       |
+   |                                   |                                    | obs:bucket:GetEncryptionConfiguration |
+   |                                   |                                    |                                       |
+   |                                   |                                    | obs:bucket:HeadBucket                 |
+   |                                   |                                    |                                       |
+   |                                   |                                    | dis:streams:list                      |
+   |                                   |                                    |                                       |
+   |                                   |                                    | dis:streamPolicies:list               |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:groups:get                    | Get log group                      | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:transfers:put                 | Put transfer                       | obs:bucket:PutBucketAcl               |
+   |                                   |                                    |                                       |
+   |                                   |                                    | obs:bucket:GetBucketAcl               |
+   |                                   |                                    |                                       |
+   |                                   |                                    | obs:bucket:GetEncryptionConfiguration |
+   |                                   |                                    |                                       |
+   |                                   |                                    | obs:bucket:HeadBucket                 |
+   |                                   |                                    |                                       |
+   |                                   |                                    | dis:streams:list                      |
+   |                                   |                                    |                                       |
+   |                                   |                                    | dis:streamPolicies:list               |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:resourceTags:delete           | Delete resource tag                | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:ecsOsLogPaths:list            | List ecs os logs paths             | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:structConfig:create           | Create struct config               | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:agentsConf:get                | Get agent conf                     | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:logIndex:list                 | Get log index                      | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:transfers:delete              | Delete transfer                    | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:regex:create                  | Create struct regex                | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:subscriptions:delete          | Delete subscription                | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:overviewLogsLast:list         | List overview last logs            | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:logIndex:get                  | Get log index                      | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:sqlalarmrules:create          | Create alarm options               | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:agentsConf:create             | Create agent conf                  | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:sqlalarmrules:get             | Get alarm options                  | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:datasources:batchdelete       | Batch delete datasource            | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:structConfig:put              | Update struct config               | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:groups:list                   | List log groups                    | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:sqlalarmrules:delete          | Delete alarm options               | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:transfers:action              | Enabled transfer                   | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:datasources:post              | Post datasource                    | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:topics:create                 | Create log topic                   | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:resourceTags:get              | Query resource tags                | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:logs:list                     | List logs                          | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:subscriptions:create          | Create subscription                | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:overviewLogsTopTopic:get      | List overview top logs             | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:datasources:put               | Put datasource                     | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:structConfig:delete           | Delete struct config               | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:logIndex:delete               | Deleting a specified log index     | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:topics:delete                 | Delete log topics                  | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:agentSupportedOsLogPaths:list | List agent supported os logs paths | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:topics:put                    | Put log topic                      | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:agentHeartbeat:post           | Post agent heartbeat               | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:logsByName:upload             | Upload logs by name                | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:buckets:list                  | List buckets                       | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:logIndex:post                 | Create log index                   | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:logContext:list               | List logs context                  | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:groups:delete                 | Delete log group                   | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:resourceTags:put              | Update resource tags               | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:structConfig:get              | Get struct config                  | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:overviewLogTotal:get          | Get overview logs total            | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:subscriptions:put             | Put subscription                   | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:subscriptions:list            | List subscription                  | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:datasources:delete            | Delete datasource                  | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:transfersStatus:get           | List transfer status               | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:logIndex:put                  | Put log index                      | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:sqlalarmrules:put             | Modify alarm options               | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:logs:upload                   | Upload logs                        | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:agentDetails:list             | List agent diagnostic log          | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:agentsConf:put                | Put agent conf                     | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:logstreams:list               | Check logstream resources          | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:subscriptions:get             | Get subscription                   | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:disStreams:list               | Query DIS pipe                     | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:groupTopics:put               | Create log group and log topic     | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:resourceInstance:list         | Query resource instance            | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:transfers:list                | List transfers                     | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:topics:get                    | Get log topic                      | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:agentsConf:delete             | Delete agent conf                  | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:agentEcs:list                 | List agent ecs                     | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:indiceLogs:list               | Search indiceLogs                  | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+
+   | lts:topics:list                   | List log topic                     | None                                  |
+   +-----------------------------------+------------------------------------+---------------------------------------+

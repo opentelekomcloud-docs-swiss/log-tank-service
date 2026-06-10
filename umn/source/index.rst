@@ -11,10 +11,10 @@ Log Tank Service - User Guide
    log_management/index
    log_ingestion/index
    host_management/index
-   viewing_logs/index
-   log_analysis/index
+   log_search_and_analysis/index
    log_alarms/index
    log_transfer/index
    configuration_center/index
+   querying_lts_traces
    faqs/index
    change_history

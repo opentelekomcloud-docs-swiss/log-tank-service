@@ -15,8 +15,9 @@ Host groups allow you to configure host log ingestion efficiently. You can sort 
 Creating a Host Group (IP Address)
 ----------------------------------
 
-#. Log in to the LTS console, and choose **Host Management** in the navigation pane on the left. On the displayed page, click **Create Host Group** in the upper right corner.
-#. In the displayed slide-out panel, enter a host group name, select **IP Address** for **Host Group Type**, and select **Linux** for **Host Type**.
+#. Log in to the LTS console and choose **Host Management** in the navigation pane. On the displayed page, click **Create Host Group** in the upper right corner.
+#. In the displayed slide-out panel, enter a host group name, select **IP** for **Host Group Type**, and select a host OS (**Linux**).
+#. Enter remarks. Up to 1,024 characters are allowed.
 #. In the host list, select one or more hosts to add to the group and click **OK**.
 
    -  You can filter hosts by host name or host IP address. You can also click |image1| and enter multiple host IP addresses in the displayed search box to search for matches.
@@ -27,31 +28,75 @@ Creating a Host Group (IP Address)
 Creating a Host Group (Custom Identifier)
 -----------------------------------------
 
-#. Log in to the LTS console, and choose **Host Management** in the navigation pane on the left. On the displayed page, click **Create Host Group** in the upper right corner.
+#. On the **Host Management** page, click **Create Host Group** in the upper right corner.
 
-#. In the displayed slide-out panel, enter a host group name, select **Custom Identifier** for **Host Group Type**, and select **Linux** for **Host Type**.
+#. In the displayed slide-out panel, enter a host group name, select **Custom Identifier** for **Host Group Type**, and select a host OS (**Linux**).
 
-#. Click |image2| to add a custom identifier.
+   .. note::
+
+      -  A host group with a custom ID supports only Linux hosts.
+      -  You can click **Learn about the rules for filling in the collection path** to learn how to configure paths.
+
+#. Enter remarks. Up to 1,024 characters are allowed.
+
+#. Enter a custom identifier. You can also click **Add** to enter more.
 
    .. note::
 
       Up to 10 custom identifiers can be added.
 
-#. Click **OK**.
+#. Click **OK**. After the host group is created, proceed to :ref:`6 <lts_02_1033__en-us_topic_0000001118763740_li1975952413820>` to add hosts to it.
 
 #. .. _lts_02_1033__en-us_topic_0000001118763740_li1975952413820:
 
-   Run the following commands to create the **custom_tag** file:
+   Perform the following operations to create the **custom_tag** file to save host tags:
 
-   a. Run the **cd /opt/cloud** command. In the **cloud** directory, run the **mkdir lts** command to create the **lts** directory.
-   b. Run the **chmod 750 lts** command to modify the permission on the **lts** directory.
-   c. Run the **touch custom_tag** command in the **lts** directory to create the **custom_tag** file.
-   d. Run the **chmod 640 custom_tag;vi custom_tag** command to modify the **custom_tag** permission and open the file.
-   e. Press **i** to enter the insert mode, enter a custom identifier, press **Esc**, enter **:wq!**, save the modification and exit.
+   a. Log in to the host and run the following command to check for the **/opt/cloud** directory:
+
+      .. code-block::
+
+         cd /opt/cloud
+
+      -  If the **/opt/cloud** directory does not exist, run the following command to create it:
+
+         .. code-block::
+
+            mkdir /opt/cloud/
+
+      -  If the **/opt/cloud** directory already exists, navigate to it and run the following command to create the **lts** directory in it.
+
+         .. code-block::
+
+            mkdir lts
+
+   b. Run the following command to change the permission on the **lts** directory:
+
+      .. code-block::
+
+         chmod 750 lts
+
+   c. Run the following command in the **lts** directory to create the **custom_tag** file.
+
+      .. code-block::
+
+         cd lts
+         touch custom_tag
+
+   d. Run the following command to modify the **custom_tag** permission and open the file.
+
+      .. code-block::
+
+         chmod 640 custom_tag;vi custom_tag
+
+   e. Press **i** to enter the insert mode, enter a custom identifier, press **Esc**, enter **:wq!**, save the modification, and exit.
+
+      .. code-block::
+
+         :wq!
 
    .. note::
 
-      After :ref:`5 <lts_02_1033__en-us_topic_0000001118763740_li1975952413820>`, you can use either of the following methods to add hosts to a custom host group:
+      After performing :ref:`6 <lts_02_1033__en-us_topic_0000001118763740_li1975952413820>`, you can use either of the following methods to add hosts to the custom identifier host group:
 
       Method 1 (recommended):
 
@@ -76,14 +121,14 @@ You can change the name of a host group, add hosts to or remove hosts from a hos
    +--------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | Operation                                                          | Procedure                                                                                                                                                                                              |
    +====================================================================+========================================================================================================================================================================================================+
-   | Changing a host group name                                         | #. Log in to the LTS console. In the navigation pane on the left, choose **Host Management**.                                                                                                          |
-   |                                                                    | #. On the **Host Groups** tab, click |image3| in the **Operation** column of the row containing the target host group.                                                                                 |
-   |                                                                    | #. On the displayed dialog box, change the host group name.                                                                                                                                            |
+   | Changing a host group name                                         | #. On the **Host Management** page, the **Host Groups** tab is displayed by default.                                                                                                                   |
+   |                                                                    | #. On the **Host Groups** tab page, click the modification button in the **Operation** column of the row containing the target host group.                                                             |
+   |                                                                    | #. On the displayed dialog box, modify the information such as the host group name and custom identifier.                                                                                              |
    |                                                                    | #. Click **OK**.                                                                                                                                                                                       |
    +--------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | Adding hosts to a host group                                       | **Method 1:**                                                                                                                                                                                          |
    |                                                                    |                                                                                                                                                                                                        |
-   |                                                                    | #. On the **Host Management** page, click the **Host Groups** tab, and click |image4| in the row containing the target host group.                                                                     |
+   |                                                                    | #. On the **Host Management** page, click the **Host Groups** tab, and click |image2| in the row containing the target host group.                                                                     |
    |                                                                    |                                                                                                                                                                                                        |
    |                                                                    | #. .. _lts_02_1033__en-us_topic_0000001118763740_li682633315215:                                                                                                                                       |
    |                                                                    |                                                                                                                                                                                                        |
@@ -91,7 +136,7 @@ You can change the name of a host group, add hosts to or remove hosts from a hos
    |                                                                    |                                                                                                                                                                                                        |
    |                                                                    | #. In the displayed slide-out panel, all hosts that are not in the host group and run the selected OS type are displayed. Select the hosts to be added to the host group.                              |
    |                                                                    |                                                                                                                                                                                                        |
-   |                                                                    |    -  You can filter hosts by host name or host IP address. You can also click |image5| and enter multiple host IP addresses in the displayed search box to search for matches.                        |
+   |                                                                    |    -  You can filter hosts by host name or host IP address. You can also click |image3| and enter multiple host IP addresses in the displayed search box to search for matches.                        |
    |                                                                    |    -  If your desired hosts are not in the list, click **Install ICAgent**. On the displayed page, install ICAgent on the hosts as prompted. For details, see :ref:`Installing ICAgent <lts_02_0013>`. |
    |                                                                    |                                                                                                                                                                                                        |
    |                                                                    | #. Click **OK**.                                                                                                                                                                                       |
@@ -103,7 +148,7 @@ You can change the name of a host group, add hosts to or remove hosts from a hos
    |                                                                    | #. In the displayed slide-out panel, select the target host group.                                                                                                                                     |
    |                                                                    | #. Click **OK**.                                                                                                                                                                                       |
    +--------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | Removing a host from a host group                                  | #. On the **Host Management** page, click the **Host Groups** tab, and click |image6| in the row containing the target host group.                                                                     |
+   | Removing a host from a host group                                  | #. On the **Host Management** page, click the **Host Groups** tab, and click |image4| in the row containing the target host group.                                                                     |
    |                                                                    | #. In the host list, click **Remove** in the **Operation** column of the row containing the host to be removed.                                                                                        |
    |                                                                    | #. In the displayed dialog box, click **OK**.                                                                                                                                                          |
    |                                                                    |                                                                                                                                                                                                        |
@@ -111,7 +156,7 @@ You can change the name of a host group, add hosts to or remove hosts from a hos
    |                                                                    |                                                                                                                                                                                                        |
    |                                                                    |    This operation is not supported for hosts in the custom identifier host group.                                                                                                                      |
    +--------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | Uninstalling ICAgent from a host                                   | #. On the **Host Management** page, click the **Host Groups** tab, and click |image7| in the row containing the target host group.                                                                     |
+   | Uninstalling ICAgent from a host                                   | #. On the **Host Management** page, click the **Host Groups** tab, and click |image5| in the row containing the target host group.                                                                     |
    |                                                                    | #. In the host list, click **Uninstall ICAgent** in the **Operation** column of the row containing the target host.                                                                                    |
    |                                                                    | #. In the displayed dialog box, click **OK** to uninstall ICAgent from the host and remove the host from the host group.                                                                               |
    |                                                                    |                                                                                                                                                                                                        |
@@ -120,11 +165,11 @@ You can change the name of a host group, add hosts to or remove hosts from a hos
    |                                                                    |       -  This operation is not supported for hosts in the custom identifier host group.                                                                                                                |
    |                                                                    |       -  If the host has also been added to other host groups, it will be removed from those groups as well.                                                                                           |
    +--------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | Removing hosts from a host group                                   | #. On the **Host Management** page, click the **Host Groups** tab, and click |image8| in the row containing the target host group.                                                                     |
+   | Removing hosts from a host group                                   | #. On the **Host Management** page, click the **Host Groups** tab, and click |image6| in the row containing the target host group.                                                                     |
    |                                                                    | #. In the host list, select the target hosts and click the **Remove** button above the list.                                                                                                           |
    |                                                                    | #. Click **OK**.                                                                                                                                                                                       |
    +--------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | Associating a host group with an ingestion configuration           | #. On the **Host Management** page, click the **Host Groups** tab, and click |image9| in the row containing the target host group.                                                                     |
+   | Associating a host group with an ingestion configuration           | #. On the **Host Management** page, click the **Host Groups** tab, and click |image7| in the row containing the target host group.                                                                     |
    |                                                                    | #. Click the **Associated Ingestion Configuration** tab.                                                                                                                                               |
    |                                                                    | #. Click **Associate**.                                                                                                                                                                                |
    |                                                                    | #. In the displayed slide-out panel, select the target ingestion configuration.                                                                                                                        |
@@ -136,14 +181,16 @@ You can change the name of a host group, add hosts to or remove hosts from a hos
    | Disassociating a host group from multiple ingestion configurations | #. On the **Associated Ingestion Configuration** tab, select the target ingestion configurations and click the **Disassociate** button above the list.                                                 |
    |                                                                    | #. Click **OK**.                                                                                                                                                                                       |
    +--------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | Copying a host group ID                                            | Hover your cursor over a host group name to copy the host group ID.                                                                                                                                    |
+   +--------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 Deleting Host Groups
 --------------------
 
 **Deleting a single host group**
 
-#. Log in to the LTS console. In the navigation pane on the left, choose **Host Management**.
-#. On the **Host Groups** tab, click |image10| in the **Operation** column of the row containing the target host group.
+#. On the **Host Management** page, the **Host Groups** tab is displayed by default.
+#. On the **Host Groups** tab, click the deletion icon in the **Operation** column of the row containing the target host group.
 #. In the displayed dialog box, click **OK**.
 
 **Deleting host groups in batches**
@@ -152,12 +199,9 @@ Deleting Host Groups
 #. In the displayed dialog box, click **OK**.
 
 .. |image1| image:: /_static/images/en-us_image_0000001165708405.png
-.. |image2| image:: /_static/images/en-us_image_0000001343684921.png
-.. |image3| image:: /_static/images/en-us_image_0000001119722454.png
-.. |image4| image:: /_static/images/en-us_image_0000001119882370.png
-.. |image5| image:: /_static/images/en-us_image_0000001166602143.png
-.. |image6| image:: /_static/images/en-us_image_0000001166682183.png
+.. |image2| image:: /_static/images/en-us_image_0000001119882370.png
+.. |image3| image:: /_static/images/en-us_image_0000001166602143.png
+.. |image4| image:: /_static/images/en-us_image_0000001166682183.png
+.. |image5| image:: /_static/images/en-us_image_0000001119882370.png
+.. |image6| image:: /_static/images/en-us_image_0000001119882370.png
 .. |image7| image:: /_static/images/en-us_image_0000001119882370.png
-.. |image8| image:: /_static/images/en-us_image_0000001119882370.png
-.. |image9| image:: /_static/images/en-us_image_0000001119882370.png
-.. |image10| image:: /_static/images/en-us_image_0000001165793419.png
