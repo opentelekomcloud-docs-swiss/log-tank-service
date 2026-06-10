@@ -22,23 +22,14 @@ Prerequisites
 Procedure
 ---------
 
-#. Log in to the console.
-
-#. Choose |image1| > **Management & Deployment** > **Log Tank Service**.
-
-   Choose **Log Management**.
-
-#. In the log group list, click |image2| of the target log group.
-
+#. Log in to the LTS console. The **Log Management** page is displayed by default.
+#. In the log group list, click |image1| of the target log group.
 #. In the log stream list, locate the target log stream.
-
 #. Click the number or hyphen in the **Metric Filter Numbers** column.
-
 #. Click **Delete** in the row where the target filter is located.
 
    .. note::
 
       After the filter is deleted, the metric corresponding to the filter will stop being monitored by AOM. The previously configured alarm rules may trigger an alarm due to insufficient data.
 
-.. |image1| image:: /_static/images/en-us_image_0000001130122307.png
-.. |image2| image:: /_static/images/en-us_image_0000002115137253.png
+.. |image1| image:: /_static/images/en-us_image_0000001734048862.png

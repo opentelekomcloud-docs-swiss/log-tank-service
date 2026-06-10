@@ -5,18 +5,18 @@
 Log Management
 ==============
 
--  :ref:`LTS Console <lts_04_1153>`
+-  :ref:`Overview <lts_04_1153>`
 -  :ref:`Resource Statistics <lts_04_1154>`
--  :ref:`Managing Log Groups <lts_04_0003>`
--  :ref:`Managing Log Streams <lts_04_0004>`
+-  :ref:`Log Groups <lts_04_0003>`
+-  :ref:`Log Streams <lts_04_0004>`
 -  :ref:`Tag Management <lts_04_1217>`
 
 .. toctree::
    :maxdepth: 1
    :hidden: 
 
-   lts_console
+   overview
    resource_statistics
-   managing_log_groups
-   managing_log_streams
+   log_groups
+   log_streams
    tag_management

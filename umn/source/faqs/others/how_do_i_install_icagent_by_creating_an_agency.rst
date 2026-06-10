@@ -10,7 +10,7 @@ When installing ICAgent, you can create an IAM agency, and ICAgent will automati
 Procedure
 ---------
 
-#. Log in to the console and choose |image1| > **Management & Deployment** > **Identity and Access Management**.
+#. Log in to the console and choose > **Management & Deployment** > **Identity and Access Management**.
 #. Choose **Agencies** in the navigation pane on the left.
 #. Click **Create Agency** in the upper right corner and set parameters as follows:
 
@@ -31,8 +31,8 @@ Procedure
       +-----------------+--------------------------------------------------------------------+
 
 #. Click **Next**.
-#. Add the **LTS Administrator** permissions and click **Next**.
-#. Select **Region-specific projects** for **Scope**.
+#. Search for **LTS Admin** and **APM Administrator** in the permission search box and select them.
+#. Click **Next**, set the authorization scope to **Region-specific projects**, and select projects.
 #. Click **OK**. The authorization takes effect 15 to 30 minutes later.
 
 Making an Agency Effective
@@ -41,5 +41,3 @@ Making an Agency Effective
 #. Choose **Service List** > **Computing** > **Elastic Cloud Server**.
 #. Click the ECS where ICAgent is installed. The ECS details page is displayed.
 #. Select the created agency and confirm the configuration to make the agency effective.
-
-.. |image1| image:: /_static/images/en-us_image_0000001145758035.png

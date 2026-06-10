@@ -5,7 +5,7 @@
 Installing ICAgent
 ==================
 
-ICAgent is a log collection tool for LTS. If you use LTS to collect logs in the hosts, you need to install the ICAgent. This section describes how to install the ICAgent on a host.
+ICAgent is a log collection tool for LTS. To use LTS to collect logs from hosts, you need to install ICAgent on the hosts.
 
 Prerequisites
 -------------
@@ -30,28 +30,28 @@ There are two methods to install ICAgent.
 Initial Installation (Linux)
 ----------------------------
 
-#. Log in to the LTS console and choose **Host Management** in the navigation pane on the left.
+#. Log in to the LTS console and choose **Host Management** in the navigation pane.
 #. Click **Install ICAgent** in the upper right corner.
 #. Set **OS** to **Linux**.
 #. Select an installation mode:
 
-   -  **Obtain AK/SK**. For details, see :ref:`How Do I Obtain an AK/SK Pair? <lts_03_0015>`
+   -  Obtain the AK/SK pair. For details, see :ref:`How Do I Obtain an AK/SK Pair? <lts_03_0015>`
 
-      Obtain and use the AK/SK of a public account.
+      Obtain and use the AK/SK pair of a public account.
 
       .. important::
 
-         Ensure that the public account and AK/SK will not be deleted or disabled. If the AK/SK is deleted, the ICAgent cannot report data to LTS.
+         Ensure that the public account and AK/SK pair will not be deleted or disabled. If the AK/SK pair is deleted, ICAgent cannot report data to LTS.
 
-   -  **Create an agency**. For details, see :ref:`How Do I Install ICAgent by Creating an Agency? <lts_03_0002>`
+   -  Create an agency. For details, see :ref:`How Do I Install ICAgent by Creating an Agency? <lts_03_0002>`
 
 #. Click **Copy Command** to copy the ICAgent installation command.
-#. Log in as user **root** to the host which is deployed in the region same as that you are logged in to (by using a remote login tool such as PuTTY) and run the copied command. If you have chosen **Obtain AK/SK** as the installation mode, enter the AK/SK as prompted.
+#. Log in as user **root** to the host which is deployed in the region same as that you are logged in to (for example, by using a remote login tool such as PuTTY) and run the copied command. If you have chosen **Obtain AK/SK** as the installation mode, enter the AK/SK pair as prompted.
 
    .. note::
 
-      -  When message **ICAgent install success** is displayed, ICAgent has been installed in the **/opt/oss/servicemgr/** directory of the host. You can then view the ICAgent status by choosing **Host Management** in the navigation pane of the LTS console and then clicking **Hosts**.
-      -  If the installation fails, uninstall ICAgent and then install it again.
+      -  When the message **ICAgent install success** is displayed, ICAgent has been installed in the **/opt/oss/servicemgr/** directory of the host. You can then view the ICAgent status by choosing **Host Management** in the navigation pane of the LTS console and then clicking **Hosts**.
+      -  If the installation fails, uninstall ICAgent and reinstall it. If the reinstallation fails, contact technical support.
 
 Inherited Installation (Linux)
 ------------------------------
@@ -68,8 +68,8 @@ Let's assume that you need to install ICAgent on multiple hosts, and one of the 
 
       -  If the Expect tool is installed on the host that has ICAgent installed, the ICAgent installation should be able to complete without prompting you for a password. Otherwise, enter the password as prompted.
       -  Ensure that user **root** can run SSH or SCP commands on the host where ICAgent has been installed to remotely communicate with the remote host to install ICAgent.
-      -  When message **ICAgent install success** is displayed, ICAgent has been installed in the **/opt/oss/servicemgr/** directory of the host. You can then view the ICAgent status on the page of the LTS console.
-      -  If the installation fails, uninstall ICAgent and reinstall it. If reinstallation fails, contact technical support.
+      -  When the message **ICAgent install success** is displayed, ICAgent has been installed in the **/opt/oss/servicemgr/** directory of the host. You can then view the ICAgent status by choosing **Host Management** in the navigation pane of the LTS console and then clicking **Hosts**.
+      -  If the installation fails, uninstall ICAgent and reinstall it. If the reinstallation fails, contact technical support.
 
 Batch Inherited Installation (Linux)
 ------------------------------------
@@ -79,6 +79,7 @@ Let's assume that you need to install ICAgent on multiple hosts, and one of the 
 .. important::
 
    -  The hosts must all belong to the same Virtual Private Cloud (VPC) and be on the same subnet.
+   -  **Python 3.\*** is required for batch installation. If you are prompted that Python cannot be found during ICAgent installation, install Python of a proper version and try again.
 
 **Prerequisites**
 
@@ -90,7 +91,7 @@ The IP addresses and passwords of all hosts to install ICAgent have been collect
 
 .. note::
 
-   -  Because the **iplist.cfg** file contains sensitive information, you are advised to clear it after using it.
+   -  The **iplist.cfg** file contains sensitive information. You are advised to clear it after using it.
 
    -  If all hosts share a password, list only IP addresses in the **iplist.cfg** file and enter the password manually during execution. If one of the hosts uses a different password, type the password behind its IP address.
 
@@ -98,7 +99,9 @@ The IP addresses and passwords of all hosts to install ICAgent have been collect
 
 #. Run the following command on the host that has ICAgent installed:
 
-   **bash /opt/oss/servicemgr/ICAgent/bin/remoteInstall/remote_install.sh -batchModeConfig /opt/ICAgent/iplist.cfg**
+   .. code-block::
+
+      bash /opt/oss/servicemgr/ICAgent/bin/remoteInstall/remote_install.sh -batchModeConfig /opt/ICAgent/iplist.cfg
 
    Enter the default password for user **root** of the hosts to install ICAgent. If the passwords of all hosts have been configured in the **iplist.cfg** file, press **Enter** to skip this step.
 
@@ -115,6 +118,6 @@ The IP addresses and passwords of all hosts to install ICAgent have been collect
       End of install agent: 192.168.0.109
       All hosts install icagent finish.
 
-   If the message **All hosts install icagent finish.** is displayed, ICAgent has been installed on all the hosts listed in the configuration file.
+   If the message "All hosts install icagent finish." is displayed, ICAgent has been installed on all the hosts listed in the configuration file.
 
-#. You can then view the on the page of the LTS console.
+#. Choose **Host Management** > **Hosts** in the navigation pane of the LTS console to check the :ref:`ICAgent status <lts_04_0013>`.

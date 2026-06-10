@@ -11,7 +11,7 @@ If ICAgent is uninstalled from a host, log collection will be affected. Exercise
 
    Uninstalling ICAgent does not delete the installation files. You need to delete them manually if necessary.
 
-You can uninstall ICAgent using either of the following methods:
+There are a number of ways to uninstall ICAgent:
 
 -  :ref:`Uninstalling ICAgent on the Console <lts_02_0015__en-us_topic_0000001167192835_s56b926e2e7b74b9ba2a87166afb4989b>`: This can be used to uninstall ICAgent that has been successfully installed.
 -  :ref:`Uninstalling ICAgent on a Host <lts_02_0015__en-us_topic_0000001167192835_s3b88a85d5fc54597bdb601e26408a808>`: This can be used to remove ICAgent that fails to be installed for reinstallation.
@@ -23,7 +23,7 @@ You can uninstall ICAgent using either of the following methods:
 Uninstalling ICAgent on the Console
 -----------------------------------
 
-#. Log in to the LTS console and choose **Host Management** in the navigation pane on the left.
+#. Log in to the LTS console and choose **Host Management** in the navigation pane.
 
 #. Click the **Hosts** tab.
 
@@ -33,7 +33,7 @@ Uninstalling ICAgent on the Console
 
    The uninstallation begins. This process takes about a minute.
 
-   The hosts with ICAgent uninstalled will be removed from the host list.
+   Once uninstalled, the host will be removed from the host list.
 
    .. note::
 
@@ -48,7 +48,9 @@ Uninstalling ICAgent on a Host
 
 #. Run the following command:
 
-   **bash /opt/oss/servicemgr/ICAgent/bin/manual/uninstall.sh;**
+   .. code-block::
+
+      bash /opt/oss/servicemgr/ICAgent/bin/manual/uninstall.sh
 
    If the message **ICAgent uninstall success** is displayed, the uninstallation has completed.
 
@@ -61,7 +63,9 @@ You can uninstall ICAgent on one host remotely from another host.
 
 #. Run the following command on the host where ICAgent has been installed, *x.x.x.x* is the IP address of the host you want to uninstall ICAgent from.
 
-   **bash /opt/oss/servicemgr/ICAgent/bin/remoteUninstall/remote_uninstall.sh -ip** *x.x.x.x*
+   .. code-block::
+
+      bash /opt/oss/servicemgr/ICAgent/bin/remoteUninstall/remote_uninstall.sh -ip x.x.x.x
 
 #. Enter the password for user **root** of the host when prompted.
 
@@ -92,7 +96,7 @@ The IP addresses and passwords of all hosts to uninstall ICAgent have been colle
 
 .. note::
 
-   -  Because the **iplist.cfg** file contains sensitive information, you are advised to clear it after using it.
+   -  The **iplist.cfg** file contains sensitive information. You are advised to clear it after using it.
 
    -  If all hosts share a password, list only IP addresses in the **iplist.cfg** file and enter the password during execution. If one of the hosts uses a different password, type the password behind its IP address.
 
@@ -100,7 +104,9 @@ The IP addresses and passwords of all hosts to uninstall ICAgent have been colle
 
 #. Run the following command on the host that has ICAgent installed:
 
-   **bash /opt/oss/servicemgr/ICAgent/bin/remoteUninstall/remote_uninstall.sh -batchModeConfig /opt/ICAgent/iplist.cfg**
+   .. code-block::
+
+      bash /opt/oss/servicemgr/ICAgent/bin/remoteUninstall/remote_uninstall.sh -batchModeConfig /opt/ICAgent/iplist.cfg
 
    Enter the default password for user **root** of the hosts to uninstall ICAgent. If the passwords of all hosts have been configured in the **iplist.cfg** file, press **Enter** to skip this step.
 
@@ -115,6 +121,6 @@ The IP addresses and passwords of all hosts to uninstall ICAgent have been colle
       End of uninstall agent: 192.168.0.39
       All hosts uninstall icagent finish.
 
-   If the message **All hosts uninstall icagent finish.** is displayed, the batch uninstallation has completed.
+   If message "All hosts uninstall icagent finish." is displayed, the batch uninstallation has completed.
 
-#. Choose **Host Management** and click the **Hosts** tab to check the ICAgent status of the host.
+#. Choose **Host Management** > **Hosts** on the LTS console to view the ICAgent status.

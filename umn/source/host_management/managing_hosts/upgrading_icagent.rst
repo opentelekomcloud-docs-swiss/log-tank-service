@@ -10,11 +10,11 @@ To deliver a better collection experience, LTS regularly upgrades ICAgent. When 
 Procedure
 ---------
 
-#. Log in to the LTS console and choose **Host Management** in the navigation pane on the left.
+#. Log in to the LTS console and choose **Host Management** in the navigation pane.
 
-#. Click the **Hosts** tab.
+#. On the **Host Management** page, click the **Hosts** tab.
 
-#. Select **Hosts**. Select one or more hosts where ICAgent is to be upgraded, and click **Upgrade ICAgent**.
+#. Select **Hosts**, select one or more check boxes of hosts where ICAgent is to be upgraded, and click **Upgrade ICAgent**.
 
    Select **CCE Cluster**. In the drop-down list on the right, select the cluster whose ICAgent is to be upgraded, and click **Upgrade ICAgent**.
 
